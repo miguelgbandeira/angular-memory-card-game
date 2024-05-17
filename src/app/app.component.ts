@@ -1,5 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "./api.service";
+import {Character} from "./character.model";
 
 @Component({
   selector: 'app-root',
@@ -21,24 +22,20 @@ export class AppComponent implements OnInit{
     "bowser jr.",
     "boo",
   ];
-  fetchedCharacters = [];
-  constructor(private http: HttpClient) {
+  fetchedCharacters: Character[] = [];
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit(): void {
     this.charactersNames.map(char => {
-      this.fetchCharacters(char);
+      this.apiService.fetchCharacter((char))
+        .subscribe(res => {
+          const formatedRes = res["amiibo"][0];
+          const char: Character = new Character(formatedRes.character, formatedRes.image);
+          this.fetchedCharacters.push(char);
+      })
     })
 
     }
 
-  fetchCharacters(name: string) {
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append("name", name);
-    searchParams = searchParams.append("type", "figure");
-    return this.http.get("https://www.amiiboapi.com/api/amiibo/", {params: searchParams})
-      .subscribe(res => {
-        this.fetchedCharacters.push(res["amiibo"][0])
-      })
-  }
 }
