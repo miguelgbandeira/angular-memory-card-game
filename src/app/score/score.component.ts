@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ScoreService } from './score.service';
 
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
-  styleUrl: './score.component.css'
+  styleUrl: './score.component.css',
 })
-export class ScoreComponent {
+export class ScoreComponent implements OnInit {
+  currentScore: number;
+  highestScore: number;
 
-  currentScore = 0;
-  highestScore = 0;
+  constructor(private scoreService: ScoreService) {}
 
+  ngOnInit(): void {
+    this.currentScore = this.scoreService.currentScore;
+    this.highestScore = this.scoreService.highestScore;
+  }
 }
