@@ -1,0 +1,5 @@
+<app-score></app-score>
+<div *ngFor="let char of fetchedCharacters">
+  <img src= {{char.image}} alt={{char.character}} style="width: 100px" />
+  <p>{{char.character}}</p>
+</div>
