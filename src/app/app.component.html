@@ -1,5 +1,6 @@
-<app-score></app-score>
-<div *ngFor="let char of characters">
-  <app-card [character]="char"></app-card>
-</div>
+<app-score class="scoreboard"></app-score>
+<p class="instructions">Click on each character only once!</p>
 
+<div class="gameboard">
+  <app-card *ngFor="let char of characters" [character]="char" class="cards"></app-card>
+</div>
