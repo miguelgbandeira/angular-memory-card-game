@@ -15,5 +15,11 @@ export class ScoreComponent implements OnInit {
   ngOnInit(): void {
     this.currentScore = this.scoreService.currentScore;
     this.highestScore = this.scoreService.highestScore;
+    this.scoreService.currentScoreChanged.subscribe((score) => {
+      this.currentScore = score;
+    });
+    this.scoreService.highestScoreChanged.subscribe((score) => {
+      this.highestScore = score;
+    });
   }
 }

@@ -16,5 +16,16 @@ export class AppComponent implements OnInit {
     this.apiService.shuffledCharacters.subscribe((list: Character[]) => {
       this.characters = list;
     });
+    this.apiService.reinitCardsSubject.subscribe(() => {
+      this.reinitCards();
+    });
+  }
+
+  reinitCards() {
+    const temp = [...this.characters];
+    this.characters = [];
+    setTimeout(() => {
+      this.characters = temp;
+    }, 0);
   }
 }

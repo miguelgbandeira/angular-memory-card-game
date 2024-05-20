@@ -23,8 +23,13 @@ export class ApiService {
   ];
   fetchedCharacters: Character[] = [];
   shuffledCharacters = new Subject<Character[]>();
+  reinitCardsSubject = new Subject<void>();
 
   constructor(private http: HttpClient) {}
+
+  reinitCards() {
+    this.reinitCardsSubject.next();
+  }
 
   fetchCharacters() {
     this.charactersNames.map((char) => {
